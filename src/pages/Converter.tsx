@@ -1,22 +1,9 @@
-import {
-  IonBadge,
-  IonButton,
-  IonContent,
-  IonHeader,
-  IonInput,
-  IonItem,
-  IonItemDivider,
-  IonLabel,
-  IonPage, IonSearchbar,
-  IonSelect,
-  IonSelectOption,
-  IonTitle,
-  IonToolbar
-} from '@ionic/react';
+import {IonButton, IonContent, IonHeader, IonInput, IonItem, IonItemDivider, IonLabel, IonPage, IonTitle, IonToolbar} from '@ionic/react';
 import './Converter.css';
 import {useForm} from "react-hook-form";
 import {INGREDIENTS, MEASUREMENTS} from "../constants/constants";
 import React from "react";
+import {MenuItem, Select} from "@mui/material";
 
 const Converter: React.FC = () => {
 
@@ -30,8 +17,10 @@ const Converter: React.FC = () => {
   });
 
   const convert = (data: any) => {
-    if (resultRef.current) { // TODO make grams adjustable to other units
-      resultRef.current.value = data.originalMeasurementValue * data.originalMeasurement.inOneCup * data.ingredient.gramsInOneCup;
+    const measurementsMultiplier = MEASUREMENTS.find(m => m.name === data.originalMeasurement)?.inOneCup;
+    const gramsMultiplier = INGREDIENTS.find(i => i.name === data.ingredient)?.gramsInOneCup;
+    if (resultRef.current && measurementsMultiplier && gramsMultiplier) { // TODO make grams adjustable to other units
+      resultRef.current.value = data.originalMeasurementValue * (1 / measurementsMultiplier) * gramsMultiplier;
     }
   }
 
@@ -58,26 +47,18 @@ const Converter: React.FC = () => {
                         type="number"
                         value="1" />
             </IonItem>
-            <IonItem>
-              <IonSelect {...register("originalMeasurement", { value: MEASUREMENTS[0] })}
-                         value={MEASUREMENTS[0]}>
-                {
-                  MEASUREMENTS.map(m => <IonSelectOption value={m} key={m.name}>{m.name}</IonSelectOption>)
-                }
-              </IonSelect>
-            </IonItem>
-            <IonItemDivider class="of">
-              <IonLabel>of</IonLabel>
-            </IonItemDivider>
-            {/*TODO make the ingredient select below searchable*/}
-            <IonItem>
-              <IonSelect {...register("ingredient", { maxLength: 30, value: INGREDIENTS[0] })}
-                         value={INGREDIENTS[0]}>
-                {
-                  INGREDIENTS.map(i => <IonSelectOption value={i} key={i.name}>{i.name}</IonSelectOption>)
-                }
-              </IonSelect>
-            </IonItem>
+            <Select {...register("originalMeasurement", { maxLength: 30, value: MEASUREMENTS[0].name })}
+                    defaultValue={MEASUREMENTS[0].name}>
+              {
+                MEASUREMENTS.map(m => <MenuItem value={m.name}>{m.name}</MenuItem>)
+              }
+            </Select>
+            <Select {...register("ingredient", { maxLength: 30, value: INGREDIENTS[0].name })}
+                    defaultValue={INGREDIENTS[0].name}>
+              {
+                INGREDIENTS.map(i => <MenuItem value={i.name}>{i.name}</MenuItem>)
+              }
+            </Select>
             <IonButton type="submit" expand="full" disabled={false}>Convert</IonButton>
           </form>
 

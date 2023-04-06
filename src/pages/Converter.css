@@ -14,12 +14,3 @@ ion-select {
   width: 100%;
   justify-content: center;
 }
-
-.of {
-  margin: 0;
-}
-
-.of > ion-label {
-  width: 100%;
-  text-align: center;
-}
