@@ -13,12 +13,12 @@ import {
   IonTitle,
   IonToolbar
 } from '@ionic/react';
-import './Tab1.css';
+import './Converter.css';
 import {useForm} from "react-hook-form";
 import {INGREDIENTS, MEASUREMENTS} from "../constants/constants";
 import React from "react";
 
-const Tab1: React.FC = () => {
+const Converter: React.FC = () => {
 
   INGREDIENTS.sort((a, b) => a.name > b.name ? 1 : -1);
 
@@ -93,4 +93,4 @@ const Tab1: React.FC = () => {
   );
 };
 
-export default Tab1;
+export default Converter;
