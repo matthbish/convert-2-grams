@@ -50,16 +50,16 @@ const Converter: React.FC = () => {
             <Select {...register("originalMeasurement", { maxLength: 30, value: MEASUREMENTS[0].name })}
                     defaultValue={MEASUREMENTS[0].name}>
               {
-                MEASUREMENTS.map(m => <MenuItem value={m.name}>{m.name}</MenuItem>)
+                MEASUREMENTS.map(m => <MenuItem value={m.name} key={m.name}>{m.name}</MenuItem>)
               }
             </Select>
             <Select {...register("ingredient", { maxLength: 30, value: INGREDIENTS[0].name })}
                     defaultValue={INGREDIENTS[0].name}>
               {
-                INGREDIENTS.map(i => <MenuItem value={i.name}>{i.name}</MenuItem>)
+                INGREDIENTS.map(i => <MenuItem value={i.name} key={i.name}>{i.name}</MenuItem>)
               }
             </Select>
-            <IonButton type="submit" expand="full" disabled={false}>Convert</IonButton>
+            <IonButton type="submit" expand="full">Convert</IonButton>
           </form>
 
           <IonItemDivider></IonItemDivider>

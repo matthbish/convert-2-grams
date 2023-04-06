@@ -1,4 +1,4 @@
-import {IonApp, setupIonicReact} from '@ionic/react';
+import {IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, setupIonicReact} from '@ionic/react';
 import Converter from './pages/Converter';
 
 /* Core CSS required for Ionic components to work properly */
@@ -19,12 +19,41 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import CopyPastaConverter from "./pages/CopyPastaConverter";
+import React from "react";
+import {IonReactRouter} from "@ionic/react-router";
+import {Redirect, Route} from "react-router";
+import {calculatorOutline, documentTextOutline, ellipse, triangle} from "ionicons/icons";
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
-    <Converter />
+    <IonReactRouter>
+      <IonTabs>
+        <IonRouterOutlet>
+          <Route exact path="/converter">
+            <Converter />
+          </Route>
+          <Route exact path="/copy-paste-converter">
+            <CopyPastaConverter />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/converter" />
+          </Route>
+        </IonRouterOutlet>
+        <IonTabBar slot="bottom">
+          <IonTabButton tab="tab1" href="/converter">
+            <IonIcon aria-hidden="true" icon={calculatorOutline} />
+            <IonLabel>Converter</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="tab2" href="/copy-paste-converter">
+            <IonIcon aria-hidden="true" icon={documentTextOutline} />
+            <IonLabel>Copy Paste Converter</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
+      </IonTabs>
+    </IonReactRouter>
   </IonApp>
 );
 
