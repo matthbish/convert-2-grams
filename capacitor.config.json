@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "Convert2Grams",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
