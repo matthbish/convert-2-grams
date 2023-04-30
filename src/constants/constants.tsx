@@ -18,4 +18,5 @@ export const INGREDIENTS: Ingredient[] = [ // TODO get more from https://www.kin
   {name: 'Vanilla extract', gramsInOneCup: 224 },
   {name: 'Chocolate chips', gramsInOneCup: 170 },
   {name: 'Milk', gramsInOneCup: 227 },
+  {name: 'Corn Starch', gramsInOneCup: 112 },
 ];
